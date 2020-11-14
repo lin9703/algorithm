@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 풀이법: Stack 사용
 - 오름차순(Ascending Order) : arrange them from smallest to largest
 - 시간복잡도 : O(N)
-  ㄴ N개의 수가 Stack에 들어갔다 나온다. (push/pop의 O(1))
+  ㄴ N개의 수가 Stack에 들어갔다 나온다. (push/pop: O(1))
  */
 public class Problem1874 {
     public static void main(String[] args) throws IOException {
