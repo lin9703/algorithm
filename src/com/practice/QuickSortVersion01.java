@@ -7,9 +7,9 @@ public class QuickSortVersion01 {
     public static void main(String[] args) {
         int[] arr1 = {};
         System.out.println(Arrays.toString(arr1));
-        int[] arr2 = {6,4,1,8,9,2,7,5,3};
+        int[] arr2 = {6, 4, 1, 8, 9, 2, 7, 5, 3};
         System.out.println(Arrays.toString(quickSort(arr2, 0, arr2.length - 1)));
-        int[] arr3 = {6,4,2,10,9,1,7,11,5,3,0,8};
+        int[] arr3 = {6, 4, 2, 10, 9, 1, 7, 11, 5, 3, 0, 8};
         System.out.println(Arrays.toString(quickSort(arr3, 0, arr3.length - 1)));
         int[] arr4 = {1};
         System.out.println(Arrays.toString(quickSort(arr4, 0, arr4.length - 1)));

@@ -3,7 +3,8 @@ package com.baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 /*
 백준 1406번 에디터
@@ -26,7 +27,7 @@ public class Problem1406UsingStack {
         Stack stackA = new Stack();
         Stack stackB = new Stack();
 
-        for(int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             stackA.push(str.charAt(i));
         }
 
@@ -61,12 +62,12 @@ public class Problem1406UsingStack {
 
         }
 
-        while(!stackA.isEmpty()) {
+        while (!stackA.isEmpty()) {
             stackB.push(stackA.pop());
         }
 
         StringBuilder sb = new StringBuilder();
-        while(!stackB.isEmpty()) {
+        while (!stackB.isEmpty()) {
             sb.append(stackB.pop());
         }
 

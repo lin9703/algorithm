@@ -16,7 +16,7 @@ public class PrioirityQueue {
         System.out.println(q1.peek());
 
         PriorityQueue<Student> q2 = new PriorityQueue<>(1,
-                (Student s1, Student s2) -> s1.age >= s2.age? 1 : -1);
+                (Student s1, Student s2) -> s1.age >= s2.age ? 1 : -1);
         q2.add(new Student("a", 20));
         q2.add(new Student("b", 1));
         q2.add(new Student("c", 79));
@@ -28,8 +28,6 @@ public class PrioirityQueue {
 
         while (!q2.isEmpty())
             System.out.println(q2.poll());
-
-
 
 
     }
@@ -45,11 +43,11 @@ public class PrioirityQueue {
 
         @Override
         public int compareTo(Student target) {
-            return this.age <= target.age ? 1: -1;
+            return this.age <= target.age ? 1 : -1;
         }
 
         public String toString() {
-            return name+": "+age;
+            return name + ": " + age;
         }
 
 
