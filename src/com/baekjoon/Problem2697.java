@@ -9,6 +9,8 @@ import java.util.StringTokenizer;
 /*
 백준 2697번 다음수 구하기
 https://www.acmicpc.net/problem/2697
+
+- 유의점: char -> int 알파벳 자동 변환 (index 값 에러 주의)
  */
 public class Problem2697 {
     public static void main(String[] args) throws IOException {
