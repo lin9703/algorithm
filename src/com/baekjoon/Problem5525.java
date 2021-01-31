@@ -23,13 +23,15 @@ public class Problem5525 {
         st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("I");
-        for (int i = 0; i < N; i++) {
-            sb.append("OI");
-        }
-        String p = sb.toString();
-        int pNum = p.length();
+        // 숫자만 체크하면 되기 때문에 필요 없음
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("I");
+//        for (int i = 0; i < N; i++) {
+//            sb.append("OI");
+//        }
+//        String p = sb.toString();
+//        int pNum = p.length();
+        int pNum = 1 + 2 * N;
 
         st = new StringTokenizer(br.readLine());
         int M = Integer.parseInt(st.nextToken());
