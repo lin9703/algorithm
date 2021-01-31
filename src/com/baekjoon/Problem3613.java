@@ -10,6 +10,9 @@ import java.util.StringTokenizer;
 https://www.acmicpc.net/problem/3613
 
 - 풀이법: ASCII 코드를 이용한 구현 -> 실패
+    1. 맨 앞글자 대문자 에러 처리
+    2. 맨 마지막 _ 에러 처리
+    -> 성공
 */
 public class Problem3613 {
     public static void main(String[] args) throws IOException {
@@ -28,7 +31,7 @@ public class Problem3613 {
             char c = variableName.charAt(i);
             if (c == '_') {
                 isCplus = true;
-                if (i == 0 || (i + 1) > variableLength) {
+                if (i == 0 || (i + 1) >= variableLength) {
                     isError = true;
                 } else {
                     c = variableName.charAt(++i);
@@ -39,9 +42,13 @@ public class Problem3613 {
                     }
                 }
             } else if (c >= 'A' && c <= 'Z') {
-                isJava = true;
-                sb.append("_");
-                sb.append((char) (c + 32));
+                if (i == 0) {
+                    isError = true;
+                } else {
+                    isJava = true;
+                    sb.append("_");
+                    sb.append((char) (c + 32));
+                }
             } else if (c >= 'a' && c <= 'z') {
                 sb.append(c);
             } else {
