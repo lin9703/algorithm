@@ -17,6 +17,7 @@ public class Problem1289 {
         st = new StringTokenizer(br.readLine());
         int T = Integer.parseInt(st.nextToken());
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= T; i++) {
             st = new StringTokenizer(br.readLine());
             String N = st.nextToken();
@@ -34,7 +35,9 @@ public class Problem1289 {
                 }
             }
 
-            System.out.printf("#%d %d\n", i, result);
+            sb.append("#").append(i).append(" ").append(result).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
