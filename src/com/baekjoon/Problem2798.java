@@ -10,7 +10,10 @@ import java.util.StringTokenizer;
 https://www.acmicpc.net/problem/2798
 
 - 풀이법: 브루트포스
-- 시간복잡도: for문 3개 -> 최대 O(n 세제곱)
+- 시간복잡도: for문 3개 -> 최대 O(N 세제곱)
+  ㄴ 브루트포스의 시간복잡도는 O(경우의 수 * 경우 1개의 시간복잡도)
+  ㄴ 경우의 수: N*(N-1)*(N-2)/3 => O(N 세제곱)
+  ㄴ 3 <= N <= 100 이므로 최대 1,000,000 연산
 */
 public class Problem2798 {
     public static void main(String[] args) throws IOException {
