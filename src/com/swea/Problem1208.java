@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
  * @see https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV139KOaABgCFAYh&categoryId=AV139KOaABgCFAYh&categoryType=CODE&problemTitle=1208&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1
  * @mem 21,428
  * @time 123
- * @caution Arrays.sort() 이용 
+ * @caution Arrays.sort() 이용
  */
 public class Problem1208 {
 	public static void main(String[] args) throws IOException {
@@ -34,8 +34,13 @@ public class Problem1208 {
 
 			for (int j = 0; j < dumpNum; j++) {
 				Arrays.sort(boxes);
-				boxes[0] += 1;
-				boxes[99] -= 1;
+
+				if (boxes[99] - boxes[0] <= 1) {
+					break;
+				}
+
+				boxes[0]++;
+				boxes[99]--;
 			}
 
 			Arrays.sort(boxes);
