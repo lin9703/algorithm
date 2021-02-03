@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 https://www.acmicpc.net/problem/2231
 
 - 첫 풀이: 실패
+- 풀이법: 브루트포스
 */
 public class Problem2231 {
     public static void main(String[] args) throws IOException {
@@ -17,35 +18,20 @@ public class Problem2231 {
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
-        String N = st.nextToken();
-        int numN = Integer.parseInt(N);
+        int numN = Integer.parseInt(st.nextToken());
 
-        int temp = numN - (numN % (int) Math.pow(10, (int) (Math.log10(numN))));
-
-        int result = Integer.MAX_VALUE;
-        result = getConstructor(numN, temp, result);
-
-        temp = numN;
-        result = getConstructor(numN, temp, result);
-
-        if (result == Integer.MAX_VALUE) {
-            result = 0;
-        }
-
+        int result = getConstructor(numN);
         System.out.println(result);
     }
 
-    private static int getConstructor(int numN, int temp, int result) {
-        int sum = Integer.MAX_VALUE;
-        while (sum >= numN) {
-            sum = getSum(--temp);
+    private static int getConstructor(int numN) {
+        for (int i = 0; i < numN; i++) {
+            int sum = getSum(i);
             if (sum == numN) {
-                if (temp < result) {
-                    result = temp;
-                }
+                return i;
             }
         }
-        return result;
+        return 0;
     }
 
     private static int getSum(int n) {
