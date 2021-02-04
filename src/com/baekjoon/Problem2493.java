@@ -13,7 +13,9 @@ import java.util.StringTokenizer;
  * @see https://www.acmicpc.net/problem/2493
  * @mem 85780
  * @time 752
- * @caution Stack 사용
+ * @caution 
+ * 초기 풀이법 - Stack 2개 사용 (시간초과) 
+ * 풀이법 - Stack 1개 사용 (성공)
  */
 public class Problem2493 {
 	public static void main(String[] args) throws IOException {
@@ -56,7 +58,7 @@ public class Problem2493 {
 			this.index = index;
 			this.height = height;
 		}
-		
+
 	}
 
 }
