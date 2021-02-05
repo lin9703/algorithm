@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 /**
@@ -15,7 +13,14 @@ import java.util.StringTokenizer;
  * @see https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LtJYKDzsDFAXc&categoryId=AV5LtJYKDzsDFAXc&categoryType=CODE&problemTitle=1861&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1
  * @mem 34,372
  * @time 160
- * @caution BFS 이용 
+ * @caution BFS 이용
+ */
+
+/**
+ * 두 번째 최적화 풀이법 
+ * Queue 사용할 필요가 없기에 이를 빼주고 break 문 추가
+ * @mem 30,556
+ * @time 143
  */
 public class Problem1861 {
 	static int N;
@@ -72,46 +77,31 @@ public class Problem1861 {
 		System.out.println(sb);
 	}
 
-	static class Point {
-		int x;
-		int y;
-		int roomCount;
-
-		public Point(int x, int y, int roomCount) {
-			super();
-			this.x = x;
-			this.y = y;
-			this.roomCount = roomCount;
-		}
-
-	}
-
 	private static int findNumPassingManyRooms(int[][] room, int x, int y) {
-		Queue<Point> queue = new LinkedList<>();
-		queue.add(new Point(x, y, 1));
-		isVisited[x][y] = true;
+		int roomVisit = 1;
 
-		while (!queue.isEmpty()) {
-			Point p = queue.poll();
+		boolean isTrue = true;
+		while (isTrue) {
+			isVisited[x][y] = true;
+			isTrue = false;
 
 			for (int i = 0; i < 4; i++) {
-				int nx = p.x + dx[i];
-				int ny = p.y + dy[i];
+				int nx = x + dx[i];
+				int ny = y + dy[i];
 
 				if (nx < 0 || ny < 0 || nx >= N || ny >= N) {
 					continue;
-				} else if (room[nx][ny] == room[p.x][p.y] + 1) {
-					queue.add(new Point(nx, ny, p.roomCount + 1));
-					isVisited[nx][ny] = true;
+				} else if (room[nx][ny] == room[x][y] + 1) {
+					roomVisit += 1;
+					x = nx;
+					y = ny;
+					isTrue = true;
+					break;
 				}
-			}
-
-			if (queue.isEmpty()) {
-				return p.roomCount;
 			}
 		}
 
-		return 0;
+		return roomVisit;
 	}
 
 }
