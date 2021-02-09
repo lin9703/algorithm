@@ -15,6 +15,7 @@ https://www.acmicpc.net/problem/1158
 - 시간복잡도 : 최대 O(N*K)
   ㄴ 명령어의 개수 N, 제거되는 주기 K
   ㄴ 통과 (Queue push: O(1), pop: O(1))
+- 시간: 528 -> 최적화 후 324
  */
 public class Problem1158 {
     public static void main(String[] args) throws IOException {
