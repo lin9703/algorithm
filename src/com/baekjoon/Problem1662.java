@@ -3,7 +3,6 @@ package com.baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 /*
@@ -12,39 +11,43 @@ https://www.acmicpc.net/problem/1662
 
 - 첫 번째 풀이법: Stack으로 구현
   ㄴ time: 시간 초과
+- 두 번째 풀이법: 재귀로 구현
+  ㄴ time: 128
 */
 public class Problem1662 {
+    static String S;
+    static int point;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
-        String S = st.nextToken();
+        S = st.nextToken();
 
-        Stack<Character> stack = new Stack<>();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < S.length(); i++) {
-            char temp = S.charAt(i);
+        System.out.println(getLen());
+    }
 
-            if (temp == ')') {
-                sb.setLength(0);
-                while (stack.peek() != '(') {
-                    sb.append(stack.pop());
-                    sb.reverse();
-                }
+    private static int getLen() {
+        int result = 0;
 
-                stack.pop();
-                int n = Integer.parseInt(String.valueOf(stack.pop()));
-                for (; n > 0; n--) {
-                    for (int j = 0; j < sb.length(); j++) {
-                        stack.add(sb.charAt(j));
-                    }
-                }
+        while (true) {
+            if (point == S.length()) {
+                break;
+            }
+            char temp = S.charAt(point++);
+
+            if (temp == '(') {
+                result--;
+                result += Integer.parseInt(String.valueOf(S.charAt(point - 2))) * getLen();
+            } else if (temp == ')') {
+                break;
             } else {
-                stack.add(temp);
+                result++;
             }
         }
 
-        System.out.println(stack.size());
+        return result;
     }
+
 }
