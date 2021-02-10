@@ -10,12 +10,12 @@ import java.util.StringTokenizer;
  * @author lin9703
  * @problem SWEA 5215번 햄버거 다이어트
  * @see https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-lPB6dHUDFAVT&categoryId=AWT-lPB6dHUDFAVT&categoryType=CODE&problemTitle=5215&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1
- * @mem 21,208
- * @time 784 -> 가지치기 후 706 (별 효과 X)
+ * @mem 21,208 -> 21,508 -> 19,984
+ * @time 784 -> 가지치기 후 706 (별 효과 X) -> 매개변수로 값 저장 후 169
  * @caution 부분집합 - 재귀
  */
 public class Problem5215 {
-	static int L;
+	static int N, L;
 	static int[][] ingredient;
 	static int result = 0;
 
@@ -28,7 +28,7 @@ public class Problem5215 {
 		StringBuilder sb = new StringBuilder();
 		for (int t = 1; t <= T; t++) {
 			st = new StringTokenizer(br.readLine());
-			int N = Integer.parseInt(st.nextToken());
+			N = Integer.parseInt(st.nextToken());
 			L = Integer.parseInt(st.nextToken());
 
 			ingredient = new int[N][2];
@@ -39,7 +39,7 @@ public class Problem5215 {
 			}
 
 			result = 0;
-			powerset(N, new boolean[N], 0);
+			powerset(0, 0, 0);
 
 			// print
 			sb.append("#").append(t).append(" ").append(result).append("\n");
@@ -48,33 +48,18 @@ public class Problem5215 {
 		System.out.println(sb);
 	}
 
-	private static void powerset(int toChoose, boolean[] chosen, int kal) {
+	private static void powerset(int toChoose, int taste, int kal) {
 		if (kal > L) {
 			return;
 		}
-		if (toChoose == 0) {
-			result = Math.max(result, getSum(chosen));
+		if (toChoose == N) {
+			result = Math.max(result, taste);
 			return;
 		}
 
-		chosen[chosen.length - toChoose] = false;
-		powerset(toChoose - 1, chosen, kal);
+		powerset(toChoose + 1, taste + ingredient[toChoose][0], kal + ingredient[toChoose][1]);
+		powerset(toChoose + 1, taste, kal);
 
-		chosen[chosen.length - toChoose] = true;
-		kal += ingredient[chosen.length - toChoose][1];
-		powerset(toChoose - 1, chosen, kal);
-
-	}
-
-	private static int getSum(boolean[] chosen) {
-		int taste = 0;
-		for (int i = 0; i < chosen.length; i++) {
-			if (chosen[i]) {
-				taste += ingredient[i][0];
-			}
-		}
-
-		return taste;
 	}
 
 }
