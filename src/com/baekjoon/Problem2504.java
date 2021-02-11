@@ -11,8 +11,8 @@ import java.util.StringTokenizer;
 https://www.acmicpc.net/problem/2504
 
 - 첫 번째 풀이법: String Stack으로 구현 (실패)
-- 두 번째 풀이법:
-  ㄴ time: 128
+- 두 번째 풀이법: Integer Stack으로 구현 (성공)
+  ㄴ time: 132
 */
 public class Problem2504 {
     public static void main(String[] args) throws IOException {
@@ -21,50 +21,48 @@ public class Problem2504 {
 
         st = new StringTokenizer(br.readLine());
         String S = st.nextToken();
-        String[] s = S.split("");
 
-        Stack<String> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
         boolean isTrue = true;
         for (int i = 0; i < S.length(); i++) {
-            String c = s[i];
+            char c = S.charAt(i);
 
-            if (c.equals("[") || c.equals("(")) {
-                stack.push(c);
-            } else if (c.equals("]")) {
-                if (!stack.isEmpty() && stack.peek().equals("[")) {
-                    stack.pop();
-                    stack.add("3");
-                } else if (!stack.isEmpty() && isNumeric(stack.peek())) {
-                    int n = Integer.parseInt(stack.pop());
-                    if (!stack.isEmpty() && stack.pop().equals("[")) {
-                        if (!stack.isEmpty() && isNumeric(stack.peek())) {
-                            n = n * 3 + Integer.parseInt(stack.pop());
-                            stack.push(String.valueOf(n));
-                        } else {
-                            stack.push(String.valueOf(n * 3));
-                        }
-                    } else {
-                        isTrue = false;
-                        break;
-                    }
+            // [: -3, (: -2
+            if (c == '[') {
+                stack.push(-3);
+            } else if (c == '(') {
+                stack.push(-2);
+            } else if (c == ']') {
+                int sum = 0;
+                while (!stack.isEmpty() && stack.peek().intValue() > 0) {
+                    sum += stack.pop();
                 }
-            } else if (c.equals(")")) {
-                if (!stack.isEmpty() && stack.peek().equals("(")) {
-                    stack.pop();
-                    stack.add("2");
-                } else if (!stack.isEmpty() && isNumeric(stack.peek())) {
-                    int n = Integer.parseInt(stack.pop());
-                    if (!stack.isEmpty() && stack.pop().equals("(")) {
-                        if (!stack.isEmpty() && isNumeric(stack.peek())) {
-                            n = n * 2 + Integer.parseInt(stack.pop());
-                            stack.push(String.valueOf(n));
-                        } else {
-                            stack.push(String.valueOf(n * 2));
-                        }
+
+                if (!stack.isEmpty() && stack.pop() == -3) {
+                    if (sum == 0) {
+                        stack.add(3);
                     } else {
-                        isTrue = false;
-                        break;
+                        stack.add(sum * 3);
                     }
+                } else {
+                    isTrue = false;
+                    break;
+                }
+            } else if (c == ')') {
+                int sum = 0;
+                while (!stack.isEmpty() && stack.peek().intValue() > 0) {
+                    sum += stack.pop();
+                }
+
+                if (!stack.isEmpty() && stack.pop() == -2) {
+                    if (sum == 0) {
+                        stack.add(2);
+                    } else {
+                        stack.add(sum * 2);
+                    }
+                } else {
+                    isTrue = false;
+                    break;
                 }
             } else {
                 isTrue = false;
@@ -72,21 +70,22 @@ public class Problem2504 {
             }
         }
 
-        if (isTrue && stack.size() == 1) {
-            System.out.println(stack.pop());
+        int result = 0;
+        while (!stack.isEmpty()) {
+            int t = stack.pop();
+            if (t < 0) {
+                isTrue = false;
+                break;
+            } else {
+                result += t;
+            }
+        }
+
+        if (isTrue) {
+            System.out.println(result);
         } else {
             System.out.println(0);
         }
-    }
-
-    private static boolean isNumeric(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
     }
 
 }
