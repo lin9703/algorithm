@@ -3,6 +3,7 @@ package com.swea;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -46,14 +47,26 @@ public class Problem6808 {
 			win = 0;
 			lose = 0;
 
-			permutation(0, 0, 0);
-
+			//permutation(0, 0, 0);
+			do {
+				int score = 0;
+				for(int i=0; i<9; i++) {
+					score += getScore(gCards[i], iCards[i]);
+				}
+				if (score > 0)
+					win++;
+				else if (score < 0)
+					lose++;
+			} while(nextpermutation());
+			
+			
 			sb.append("#").append(t).append(" ").append(win).append(" ").append(lose).append("\n");
 		}
 
 		System.out.println(sb);
 	}
 
+	/* permutation 이용 
 	private static void permutation(int toChoose, int flag, int score) {
 		if (toChoose == 9) {
 			if (score > 0)
@@ -71,6 +84,7 @@ public class Problem6808 {
 			permutation(toChoose + 1, flag | 1 << i, score + getScore(gCards[toChoose], iCards[i]));
 		}
 	}
+	*/
 
 	private static int getScore(int i, int j) {
 		if (i > j)
@@ -79,5 +93,37 @@ public class Problem6808 {
 			return 0;
 		else
 			return -(i + j);
+	}
+	
+	private static boolean nextpermutation() {
+		int k = 9 - 1;
+		while(k > 0 && iCards[k-1] > iCards[k]) {
+			k--;
+		}
+		if(k == 0) {
+			return false;
+		}
+		int i = k;
+		
+		int l = 9 - 1;
+		while(l >= 0 && iCards[i-1] > iCards[l]) {
+			l--;
+		}
+		swap(i-1, l);
+		
+		int m = 9 - 1;
+		while(i < m) {
+			swap(i, m);
+			i++;
+			m--;
+		}
+		
+		return true;		
+	}
+
+	private static void swap(int i, int j) {
+		int temp = iCards[i];
+		iCards[i] = iCards[j];
+		iCards[j] = temp;
 	}
 }
