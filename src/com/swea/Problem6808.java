@@ -3,7 +3,6 @@ package com.swea;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -11,9 +10,9 @@ import java.util.StringTokenizer;
  * @author lin9703
  * @problem SWEA 6808번 규영이와 인영이의 카드게임
  * @see https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWgv9va6HnkDFAW0&categoryId=AWgv9va6HnkDFAW0&categoryType=CODE&problemTitle=6808&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1
- * @mem 20,368
- * @time 1,834
- * @caution 순열 이용
+ * @mem permutation - 20,368 / nextpermutation - 23,000
+ * @time permutation - 1,834 / nextpermutation - 1,306
+ * @caution 순열 이용 / Next Permutation 이용
  */
 public class Problem6808 {
 	static int[] gCards, iCards;
@@ -47,44 +46,43 @@ public class Problem6808 {
 			win = 0;
 			lose = 0;
 
-			//permutation(0, 0, 0);
+			// permutation(0, 0, 0);
 			do {
 				int score = 0;
-				for(int i=0; i<9; i++) {
+
+				for (int i = 0; i < 9; i++) {
 					score += getScore(gCards[i], iCards[i]);
 				}
 				if (score > 0)
 					win++;
 				else if (score < 0)
 					lose++;
-			} while(nextpermutation());
-			
-			
+			} while (nextpermutation());
+
 			sb.append("#").append(t).append(" ").append(win).append(" ").append(lose).append("\n");
 		}
 
 		System.out.println(sb);
 	}
 
-	/* permutation 이용 
-	private static void permutation(int toChoose, int flag, int score) {
-		if (toChoose == 9) {
-			if (score > 0)
-				win++;
-			else if (score < 0)
-				lose++;
-
-			return;
-		}
-
-		for (int i = 0; i < 9; i++) {
-			if ((flag & 1 << i) != 0)
-				continue;
-
-			permutation(toChoose + 1, flag | 1 << i, score + getScore(gCards[toChoose], iCards[i]));
-		}
-	}
-	*/
+	// permutation 이용
+//	private static void permutation(int toChoose, int flag, int score) {
+//		if (toChoose == 9) {
+//			if (score > 0)
+//				win++;
+//			else if (score < 0)
+//				lose++;
+//
+//			return;
+//		}
+//
+//		for (int i = 0; i < 9; i++) {
+//			if ((flag & 1 << i) != 0)
+//				continue;
+//
+//			permutation(toChoose + 1, flag | 1 << i, score + getScore(gCards[toChoose], iCards[i]));
+//		}
+//	}
 
 	private static int getScore(int i, int j) {
 		if (i > j)
@@ -94,31 +92,30 @@ public class Problem6808 {
 		else
 			return -(i + j);
 	}
-	
+
 	private static boolean nextpermutation() {
 		int k = 9 - 1;
-		while(k > 0 && iCards[k-1] > iCards[k]) {
+		while (k > 0 && iCards[k - 1] > iCards[k]) {
 			k--;
 		}
-		if(k == 0) {
+		if (k == 0) {
 			return false;
 		}
-		int i = k;
-		
+
 		int l = 9 - 1;
-		while(l >= 0 && iCards[i-1] > iCards[l]) {
+		while (l >= 0 && iCards[k - 1] > iCards[l]) {
 			l--;
 		}
-		swap(i-1, l);
-		
+		swap(k - 1, l);
+
 		int m = 9 - 1;
-		while(i < m) {
-			swap(i, m);
-			i++;
+		while (k < m) {
+			swap(k, m);
+			k++;
 			m--;
 		}
-		
-		return true;		
+
+		return true;
 	}
 
 	private static void swap(int i, int j) {
