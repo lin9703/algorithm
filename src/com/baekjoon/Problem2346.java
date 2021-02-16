@@ -13,6 +13,8 @@ https://www.acmicpc.net/problem/2346
 
 - 풀이법: Deque 이용 
   ㄴ time: 196
+- 최적화: opti 변수 추가 
+  ㄴ time: 180
 */
 public class Problem2346 {
 
@@ -31,13 +33,18 @@ public class Problem2346 {
 		int num = 1;
 		Balloon balloon;
 		while (!deque.isEmpty()) {
+			int opti = num % deque.size();
+			if (opti == 0) {
+				num *= -1;
+			}
+
 			if (num > 0) {
-				while (--num > 0) {
+				while (--opti > 0) {
 					deque.addLast(deque.pollFirst());
 				}
 				balloon = deque.pollFirst();
 			} else {
-				while (++num < 0) {
+				while (++opti < 0) {
 					deque.addFirst(deque.pollLast());
 				}
 				balloon = deque.pollLast();
