@@ -11,7 +11,11 @@ import java.util.StringTokenizer;
 정올 2577번 회전 초밥(고)
 http://www.jungol.co.kr/bbs/board.php?bo_table=pbank&wr_id=1838&sca=99&sfl=wr_hit&stx=2577
 
-- 풀이법: 
+- 풀이법: deque와 set 사용 (시간초과)
+  ㄴ set 사용 -> 배열로 count 관리 (Fail)
+  ㄴ 원형 큐 같은 느낌이라 N+K 까지 for문 돌려야 한다. (시간초과)
+  ㄴ i % N 사용 (시간초과)
+  ㄴ while문 if문으로 변경 (성공)
   ㄴ time: 868
 */
 public class Problem2577 {
